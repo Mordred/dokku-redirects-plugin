@@ -33,3 +33,7 @@ $ ssh dokku@server redirects:set myawesomeapp.com=www.myawesomeapp.com # Client 
 
 ## License
 MIT
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/Mordred/dokku-redirects-plugin/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
