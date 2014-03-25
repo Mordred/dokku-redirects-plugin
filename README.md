@@ -1,7 +1,7 @@
 # dokku-redirects-plugin
 
-[![Build Status](https://travis-ci.org/mordred/dokku-redirects-plugin.png?branch=master)](https://travis-ci.org/mordred/dokku-redirects-plugin)
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/mordred/dokku-redirects-plugin/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+[![Build Status](https://travis-ci.org/Mordred/dokku-redirects-plugin.png?branch=master)](https://travis-ci.org/Mordred/dokku-redirects-plugin)
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/Mordred/dokku-redirects-plugin/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
 [Dokku](https://github.com/progrium/dokku) plugin to create nginx vhost which redirects domains to primary domain.
 
