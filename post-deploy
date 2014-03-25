@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -eo pipefail; [[ $DOKKU_TRACE ]] && set -x
+APP="$1"; PORT="$2";
+
+REDIRECTS_FILE="$DOKKU_ROOT/$APP/REDIRECTS"
+
+if [[ -f "$REDIRECTS_FILE" ]]; then
+  REDIRECTS=$(< "$REDIRECTS_FILE")
+  dokku redirects:set $APP $REDIRECTS
+fi

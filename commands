@@ -1,0 +1,74 @@
+#!/usr/bin/env bash
+set -eo pipefail; [[ $DOKKU_TRACE ]] && set -x
+
+function create_vhost() {
+  source=$1
+  destination=$2
+
+  cat<<EOF >> $DOKKU_ROOT/$APP/nginx-redirects.conf
+server {
+  listen      [::]:80;
+  listen      80;
+  server_name $source;
+  return      301 http://$destination\$request_uri;
+}
+EOF
+}
+
+# Check if name is specified
+if [[ $1 == redirects ]] || [[ $1 == redirects:* ]]; then
+  if [[ -z $2 ]]; then
+    echo "You must specify an app name"
+    exit 1
+  else
+    APP="$2"
+    REDIRECTS_FILE="$DOKKU_ROOT/$APP/REDIRECTS"
+
+    # Check if app exists with the same name
+    if [ ! -d "$DOKKU_ROOT/$APP" ]; then
+      echo "App $APP does not exist"
+      exit 1
+    fi
+
+    [ -f $REDIRECTS_FILE ] || {
+      echo "-----> Creating $REDIRECTS_FILE"
+      touch $REDIRECTS_FILE
+    }
+  fi
+fi
+
+case "$1" in
+
+  redirects)
+      cat $REDIRECTS_FILE
+    ;;
+
+  redirects:set)
+    if [[ -z "${*:3}" ]]; then
+      echo "Usage: dokku redirects:set APP DOMAIN1=DOMAIN2 [DOMAIN3=DOMAIN4 ...]"
+      echo "Must specify a source DOMAIN and a destination DOMAIN."
+      exit 1
+    fi
+
+    echo -n "" > $DOKKU_ROOT/$APP/nginx-redirects.conf
+
+    redirects="${*:3}"
+    for redirect in $redirects; do
+      source=${redirect%%=*}
+      destination=${redirects##*=}
+      create_vhost $source $destination
+    done
+
+    echo "$redirects" > $REDIRECTS_FILE
+
+    pluginhook nginx-pre-reload $APP
+    sudo /etc/init.d/nginx reload
+    ;;
+
+  help)
+    cat && cat<<EOF
+    redirects <app>                                                display the redirects for an app
+    redirects:set <app> DOMAIN1=DOMAIN2 [DOMAIN3=DOMAIN4 ...]      set one or more redirects
+EOF
+    ;;
+esac
