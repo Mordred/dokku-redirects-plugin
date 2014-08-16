@@ -8,6 +8,7 @@
 ## Installation
 
 ```bash
+cd /var/lib/dokku/plugins
 git clone https://github.com/mordred/dokku-redirects-plugin.git /var/lib/dokku/plugins/redirects-plugin
 dokku plugins-install
 ```
@@ -16,8 +17,10 @@ dokku plugins-install
 
 ```bash
 $ dokku help
+    ...
     redirects <app>                                                   display redirects for an app
     redirects:set <app> DOMAIN1=DOMAIN2 [DOMAIN3=DOMAIN4 ...]         set one or more domains redirects
+    ...
 ```
 
 ## Simple usage
@@ -27,7 +30,7 @@ Your need to have app running with the same name!
 Create vhost with multiple where one domain redirects all request to another 
 
 ```bash
-$ dokku redirects:set myawesomeapp.com=www.myawesomeapp.com            # Server side
+$ dokku redirects:set myawesomeapp.com myawesomeapp.com=www.myawesomeapp.com # Server side
 $ ssh dokku@server redirects:set myawesomeapp.com=www.myawesomeapp.com # Client side
 ```
 
