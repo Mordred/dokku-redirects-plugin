@@ -27,11 +27,17 @@ $ dokku help
 
 Your need to have app running with the same name!
 
-Create vhost with multiple where one domain redirects all request to another 
+Create vhost with multiple where one domain redirects all request to another
 
 ```bash
 $ dokku redirects:set myawesomeapp.com myawesomeapp.com=www.myawesomeapp.com # Server side
 $ ssh dokku@server redirects:set myawesomeapp.com myawesomeapp.com=www.myawesomeapp.com # Client side
+```
+
+#### Extended usage
+````
+$ dokku redirects:set APPNAME DOMAIN-TO-REDIRECT=DESTINATION-DOMAIN # Server side
+$ ssh dokku@server redirects:set APPNAME DOMAIN-TO-REDIRECT=DESTINATION-DOMAIN # Server side
 ```
 
 ## License
