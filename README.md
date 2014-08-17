@@ -37,7 +37,7 @@ $ ssh dokku@server redirects:set myawesomeapp.com myawesomeapp.com=www.myawesome
 #### Extended usage
 ````
 $ dokku redirects:set APPNAME DOMAIN-TO-REDIRECT=DESTINATION-DOMAIN # Server side
-$ ssh dokku@server redirects:set APPNAME DOMAIN-TO-REDIRECT=DESTINATION-DOMAIN # Server side
+$ ssh dokku@server redirects:set APPNAME DOMAIN-TO-REDIRECT=DESTINATION-DOMAIN # Client side
 ```
 
 ## License
