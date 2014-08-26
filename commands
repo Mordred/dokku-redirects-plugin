@@ -7,8 +7,6 @@ function create_vhost() {
 
   cat<<EOF >> $DOKKU_ROOT/$APP/nginx-redirects.conf
 server {
-  listen      [::]:80;
-  listen      80;
   server_name $source;
   return      301 http://$destination\$request_uri;
 }
